@@ -1,0 +1,63 @@
+---
+title: "lab6_warmup"
+output: html_document
+date: "2024-01-30"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Load the libraries
+```{r}
+library("tidyverse")
+library("janitor")
+```
+
+## Load the bison data
+```{r}
+bison <- read_csv("data/bison.csv")
+```
+## Have a look
+```{r}
+glimpse(bison)
+```
+```{r}
+bison_new <- bison %>% 
+  select(animal_code, animal_sex, animal_weight, animal_yob)
+```
+
+## Animals born between 1980-1990
+```{r}
+bison_new %>% 
+  filter(animal_yob>=1980 & animal_yob<=1990)
+```
+
+## How many males and females?
+```{r}
+males <- bison_new %>% #first pull out the males
+  filter(animal_yob>=1980 & animal_yob<=1990) %>% 
+  filter(animal_sex=="M")
+males
+
+table(males$animal_sex)
+```
+
+```{r}
+females <- bison_new %>% #first pull out the females
+  filter(animal_yob>=1980 & animal_yob<=1990) %>% 
+  filter(animal_sex=="F")
+females
+
+table(females$animal_sex)
+```
+
+## Mean of males
+```{r}
+mean(males$animal_weight)
+```
+
+## Mean of females
+```{r}
+mean(females$animal_weight)
+```
