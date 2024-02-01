@@ -1,63 +1,61 @@
 ---
-title: "lab6_warmup"
-output: html_document
-date: "2024-01-30"
+title: "Lab 6 Warm-Up"
+date: "`r Sys.Date()`"
+output:
+  html_document:
+    theme: spacelab
+    toc: yes
+    toc_float: yes
+  pdf_document:
+    toc: yes
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## Load the libraries
+### 1. Load the tidyverse
 ```{r}
 library("tidyverse")
-library("janitor")
 ```
 
-## Load the bison data
+### 2. Load the bison data
 ```{r}
 bison <- read_csv("data/bison.csv")
 ```
-## Have a look
+
+### 3. Evaluate the bison data
 ```{r}
 glimpse(bison)
 ```
+
+### 4. Pull out code, sex, weight, year of birth
 ```{r}
-bison_new <- bison %>% 
-  select(animal_code, animal_sex, animal_weight, animal_yob)
+bison_new <- select(bison, "animal_code", "animal_sex", "animal_weight", "animal_yob")
 ```
 
-## Animals born between 1980-1990
+### 5. Pull out the animals born between 1980-1990
 ```{r}
-bison_new %>% 
-  filter(animal_yob>=1980 & animal_yob<=1990)
+bison_yob <- filter(bison_new, animal_yob>=1980 & animal_yob<=1990)
 ```
 
-## How many males and females?
+### 6. How many males and females are represented in the data between 1980-1990?
 ```{r}
-males <- bison_new %>% #first pull out the males
-  filter(animal_yob>=1980 & animal_yob<=1990) %>% 
-  filter(animal_sex=="M")
-males
+table(bison_yob$animal_sex)
+```
 
-table(males$animal_sex)
+### 7. In the 1980-1990 data, are females or males larger on average?
+```{r}
+bison_m <- filter(bison_yob, animal_sex=="M")
+bison_f <- filter(bison_yob, animal_sex=="F")
+```
+
+### 8. Means
+```{r}
+mean(bison_m$animal_weight) #males
 ```
 
 ```{r}
-females <- bison_new %>% #first pull out the females
-  filter(animal_yob>=1980 & animal_yob<=1990) %>% 
-  filter(animal_sex=="F")
-females
-
-table(females$animal_sex)
+mean(bison_f$animal_weight) #females
 ```
 
-## Mean of males
-```{r}
-mean(males$animal_weight)
-```
-
-## Mean of females
-```{r}
-mean(females$animal_weight)
-```
