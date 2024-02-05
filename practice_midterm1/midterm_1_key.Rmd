@@ -100,6 +100,14 @@ gabon <- gabon %>%
 10. (4 points) For the transects with high and moderate hunting intensity, how does the average diversity of birds and mammals compare?
 ```{r}
 gabon %>% 
+  group_by(HuntCat) %>% 
+  summarise(mean_bird_diversity=mean(Diversity_BirdSpecies),
+            mean_mammal_diversity=mean(Diversity_MammalSpecies),
+            nsamples=n())
+```
+
+```{r}
+gabon %>% 
   filter(HuntCat=="High") %>% 
   summarise(mean_bird_diversity=mean(Diversity_BirdSpecies),
             mean_mammal_diversity=mean(Diversity_MammalSpecies),
