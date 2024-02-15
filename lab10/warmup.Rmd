@@ -1,0 +1,44 @@
+---
+title: "Lab 10 warmup"
+output: html_document
+date: "2024-02-15"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Load the libraries
+```{r}
+library("tidyverse")
+library("janitor")
+```
+## Load the data
+```{r}
+malaria <- read_csv("data/malaria.csv") %>% clean_names()
+```
+```{r}
+names(malaria)
+```
+
+```{r}
+head(malaria)
+```
+
+## Data tidy
+```{r}
+malaria_long <- malaria %>% 
+  pivot_longer(cols=starts_with("malaria_rdt"),
+               names_to = "age_class",
+               values_to = "cases") %>% 
+  select(data_date, submitted_date, location_name, district, age_class, cases)
+```
+
+```{r}
+malaria_long %>% 
+  filter(data_date=="2020-07-30") %>% 
+  group_by(district) %>% 
+  summarise(tot_cases=sum(cases, na.rm=T)) %>% 
+  arrange(-tot_cases)
+```
+
