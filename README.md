@@ -2,6 +2,10 @@
 
 Welcome! This repository includes homework keys, notes, and additional lessons for BIS 15L students at UC Davis.   
 
+## Homework
+
+My homework is stored in the folder named lab_homework
+
 ## Contact Info
 
 [Joel Ledford](mailto:jmledford@ucdavis.edu)  
