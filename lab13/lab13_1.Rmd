@@ -32,9 +32,9 @@ library("janitor")
 library("lubridate") #this will help us manage dates
 ```
 
-Now we can list all of the files in a directory. This is very helpful when you are working with multiple files at once. We can also get the full path names with `full.names = TRUE`.
+Now we can list all of the files in a directory. This is very helpful when you are working with multiple files at once.  
 ```{r}
-files <- list.files(path = "data/spiders", pattern = ".csv")
+files <- list.files(path = "data/spiders", pattern = ".csv", full.names = TRUE)
 files
 ```
 
